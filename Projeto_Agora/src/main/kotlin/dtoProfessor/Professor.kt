@@ -1,25 +1,27 @@
-package Sptech.Agora_Projeto
+package dtoProfessor
 
+import org.hibernate.validator.constraints.br.CPF
 import java.time.LocalDate
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
-import javax.validation.constraints.Email
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.Past
-import javax.validation.constraints.Size
+import javax.validation.constraints.*
 
 @Entity
 data class Professor (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) val idProfessor: Int,
     var nomeProfessor:String,
     @field:Size(min = 1, max = 1) var generoProfessor: String,
-    @field:NotBlank var cpfProfessor:String,
+    @field:NotBlank @field:CPF var cpfProfessor:String,
     @field:Past var dtNascProfessor: LocalDate,
     @field:NotBlank @field:Email var emailProfessor:String,
     @field:NotBlank var senha:String,
-    @field:Size(min = 11, max = 11) var contato:Int,
+    @Pattern(
+        regexp = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})",
+        message = "Envie um telefone válido"
+    )
+    var contato: String = "",
     @field:NotBlank var idLattes:Int,
-    ) {
+) {
 }

@@ -1,10 +1,10 @@
-package Sptech.Agora_Projeto
+package sptech.Projeto_Agora
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class AgoraProjetoApplicationTests {
+class ProjetoAgoraApplicationTests {
 
 	@Test
 	fun contextLoads() {
