@@ -1,6 +1,6 @@
 package dtoProfessor
 
-import org.hibernate.validator.constraints.br.CPF
+//import org.hibernate.validation.constraints.br.CPF
 import java.time.LocalDate
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -9,11 +9,11 @@ import javax.persistence.Id
 import javax.validation.constraints.*
 
 @Entity
-data class Professor (
+data class ProfessorDto (
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) val idProfessor: Int,
     var nomeProfessor:String,
     @field:Size(min = 1, max = 1) var generoProfessor: String,
-    @field:NotBlank @field:CPF var cpfProfessor:String,
+    //@field:NotBlank @field:CPF var cpfProfessor:String,
     @field:Past var dtNascProfessor: LocalDate,
     @field:NotBlank @field:Email var emailProfessor:String,
     @field:NotBlank var senha:String,
