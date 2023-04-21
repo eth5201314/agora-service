@@ -15,33 +15,33 @@ import java.security.SecureRandom
 
 @RestController
 @RequestMapping("/aluno")
-class AlunoController {
+class AlunoController(val repositorio: AlunoRepository) {
 
     val codSenha = BCryptPasswordEncoder()
 
-    @Autowired
-    lateinit var AlunoRepositorio: AlunoRepository
-
     @PostMapping
     fun cadastrar(@RequestBody @Valid aluno: AlunoDto): Any {
-        // Geração do salt
-        val random = SecureRandom()
-        val salt = ByteArray(16)
-        random.nextBytes(salt)
-        // Codifica a senha usando o BCryptPasswordEncoder e o salt gerado acima
-        val senhaCodificada = codSenha.encode(aluno.senha)
-        // Concatena o salt à senha codificada e atualiza o valor da senha no objeto Exemplo
-        aluno.senha = String(salt) + senhaCodificada
-        // Retorna o objeto Exemplo modificado
-        AlunoRepositorio.salvarAluno(
-            nome = aluno.nome,
-            genero = aluno.genero,
-            dtNasc = aluno.dtNasc,
-            email = aluno.email,
-            senha = aluno.senha
-        )
-        return ResponseEntity.status(201).body(aluno)
+
+        //try {
+            // Geração do salt
+            val random = SecureRandom()
+            val salt = ByteArray(16)
+            random.nextBytes(salt)
+
+            // Codifica a senha usando o BCryptPasswordEncoder e o salt gerado acima
+            val senhaCodificada = codSenha.encode(aluno.senha)
+
+            // Concatena o salt à senha codificada e atualiza o valor da senha no objeto
+            aluno.senha = String(salt) + senhaCodificada
+
+            // Salva o objeto modificado no banco
+            repositorio.salvarAluno(aluno)
+            return ResponseEntity.status(201).body(aluno)
+        }
+//        catch (ex: Exception){
+//            println("Erro na execução!")
+//            return ResponseEntity.status(400).body(null)
+//        }
     }
 
-
-}
+//}

@@ -13,14 +13,8 @@ interface AlunoRepository:JpaRepository<AlunoDto,Int>{
 
     @Transactional
     @Modifying
-    @Query("INSERT INTO Aluno (nome, genero, dtNascAluno, email, senha) VALUES (:nome, :genero, :dtNascAluno, :email, :senha)")
-    fun salvarAluno(
-        @Param("nome") nome: String,
-        @Param("genero") genero: String,
-        @Param("dtNascAluno") dtNasc: LocalDate,
-        @Param("email") email: String,
-        @Param("senha") senha: String,
-    )
-
+    fun salvarAluno(aluno: AlunoDto): AlunoDto {
+        return save(aluno)
+    }
 
 }
