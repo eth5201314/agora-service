@@ -1,6 +1,5 @@
-package controller
+package Agora.agora
 
-import dtoAluno.AlunoDto
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -8,21 +7,22 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import repository.AlunoRepository
-import javax.validation.Valid
 import java.security.SecureRandom
-
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/aluno")
-class AlunoController(val repositorio: AlunoRepository) {
+class AlunoController() {
+
+    @Autowired
+    lateinit var alunoRepositorio : AlunoRepository
 
     val codSenha = BCryptPasswordEncoder()
 
     @PostMapping
     fun cadastrar(@RequestBody @Valid aluno: AlunoDto): Any {
 
-        //try {
+        try {
             // Geração do salt
             val random = SecureRandom()
             val salt = ByteArray(16)
@@ -35,13 +35,11 @@ class AlunoController(val repositorio: AlunoRepository) {
             aluno.senha = String(salt) + senhaCodificada
 
             // Salva o objeto modificado no banco
-            repositorio.salvarAluno(aluno)
+            alunoRepositorio.save(aluno)
             return ResponseEntity.status(201).body(aluno)
+        } catch (ex: Exception) {
+            println("Erro na execução!")
+            return ResponseEntity.status(400).body(null)
         }
-//        catch (ex: Exception){
-//            println("Erro na execução!")
-//            return ResponseEntity.status(400).body(null)
-//        }
     }
-
-//}
+}

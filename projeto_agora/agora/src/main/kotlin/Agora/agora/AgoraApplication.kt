@@ -1,9 +1,11 @@
+package Agora.agora
+
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ProjetoAgoraApplication
+class AgoraApplication
 
 fun main(args: Array<String>) {
-	runApplication<ProjetoAgoraApplication>(*args)
+	runApplication<AgoraApplication>(*args)
 }
