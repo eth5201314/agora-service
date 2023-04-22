@@ -8,8 +8,6 @@ import javax.transaction.Transactional
 @Repository
 interface AlunoRepository: JpaRepository<AlunoDto, Int> {
 
-//    fun salvarAluno(aluno: AlunoDto):AlunoDto {
-//        return save(aluno)
-//   }
+fun findByEmailANDSenha():List<AlunoRequestDto>
 
 }
