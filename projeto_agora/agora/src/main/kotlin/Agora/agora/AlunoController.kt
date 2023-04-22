@@ -68,7 +68,7 @@ class AlunoController() {
             println("Erro na execução!")
             return ResponseEntity.status(400).body(null)
         }
-        }
+    }
     }
 
 

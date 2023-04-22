@@ -8,6 +8,5 @@ import javax.transaction.Transactional
 @Repository
 interface AlunoRepository: JpaRepository<AlunoDto, Int> {
 
-fun findByEmailANDSenha():List<AlunoRequestDto>
 
 }
