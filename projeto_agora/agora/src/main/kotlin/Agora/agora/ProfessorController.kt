@@ -57,7 +57,7 @@ class ProfessorController(val professorRepositorio: ProfessorRepository) {
         val retornado = professorRepositorio.findByEmail(login.email)
 
         // Checa se a senha do objeto retornado é igual a senha que foi informada
-        if (codSenha.matches(login.senha, retornado.senha)) {
+        if (codSenha.matches(retornado.senha, login.senha )) {
             println("Login realizado com sucesso")
             return ResponseEntity.status(201).body(login)
         } else {
