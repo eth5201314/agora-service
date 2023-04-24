@@ -1,4 +1,4 @@
-package Agora.agora
+package Agora.agora.dominio.entities
 
 import javax.persistence.*
 
