@@ -2,5 +2,7 @@ package Agora.agora
 
 import org.springframework.data.jpa.repository.JpaRepository
 
-interface ProfessorRepository: JpaRepository<ProfessorDto, Int> {
+interface ProfessorRepository: JpaRepository<Professor, Int> {
+
+    fun findByEmail(professorEmail: String): ProfessorLoginDto
 }
