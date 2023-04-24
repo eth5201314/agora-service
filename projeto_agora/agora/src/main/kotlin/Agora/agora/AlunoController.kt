@@ -42,27 +42,27 @@ class AlunoController(val alunoRepositorio: AlunoRepository) {
 
     @PermitAll
     @PostMapping("/login")
-    fun login(@RequestBody login:AlunoRequestDto): ResponseEntity<AlunoRequestDto> {
+    fun login(@RequestBody login: AlunoRequestDto): ResponseEntity<AlunoRequestDto> {
 
-            // Codifica a senha usando o BCryptPasswordEncoder e o salt gerado acima
-            val senhaCodificada = codSenha.encode(login.senha)
+        // Codifica a senha usando o BCryptPasswordEncoder e o salt gerado acima
+        val senhaCodificada = codSenha.encode(login.senha)
 
-            // Concatena o salt à senha codificada e atualiza o valor da senha no objeto
-            login.senha = senhaCodificada
+        // Concatena o salt à senha codificada e atualiza o valor da senha no objeto
+        login.senha = senhaCodificada
 
-            // Realiza a consulta no banco de dados pelo email informado e guarda o resultado em uma variável
-            val retornado = alunoRepositorio.findByEmail(login.email)
+        // Realiza a consulta no banco de dados pelo email informado e guarda o resultado em uma variável
+        val retornado = alunoRepositorio.findByEmail(login.email)
 
-            // Checa se a senha do objeto retornado é igual a senha que foi informada
-            if (codSenha.matches(retornado.senha, login.senha)) {
-                println("Login realizado com sucesso")
-                return ResponseEntity.status(201).body(login)
-            } else {
-                println("Usuário ou senha incorretos")
-                return ResponseEntity.status(404).body(null)
-            }
+        // Checa se a senha do objeto retornado é igual a senha que foi informada
+        if (codSenha.matches(retornado.senha, login.senha)) {
+            println("Login realizado com sucesso")
+            return ResponseEntity.status(201).body(login)
+        } else {
+            println("Usuário ou senha incorretos")
+            return ResponseEntity.status(404).body(null)
         }
     }
+}
 
 
 

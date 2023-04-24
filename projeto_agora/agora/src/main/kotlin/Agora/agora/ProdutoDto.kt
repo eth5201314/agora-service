@@ -14,10 +14,10 @@ import javax.validation.constraints.Size
 @Entity
 data class ProdutoDto(
     @field:Id @field:GeneratedValue(strategy = GenerationType.IDENTITY) var idAgendamento: Int,
-    @field:NotBlank var codigoAluno:Int,
-    @field:NotBlank var codigoProfessor:Int,
-    var dataHora:LocalDate,
-    @field:NotBlank var linkAula:String,
-    @field:NotBlank var duracao:String,
+    @field:NotBlank var codigoAluno: Int,
+    @field:NotBlank var codigoProfessor: Int,
+    var dataHora: LocalDate,
+    @field:NotBlank var linkAula: String,
+    @field:NotBlank var duracao: String,
 ) {
 }
