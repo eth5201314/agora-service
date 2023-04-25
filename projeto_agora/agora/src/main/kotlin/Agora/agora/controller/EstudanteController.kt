@@ -18,7 +18,7 @@ import javax.validation.Valid
 @RequestMapping("/estudante")
 class EstudanteController(val estudanteRepository: EstudanteRepository) {
 
-    val codSenha = BCryptPasswordEncoder()
+    private val codSenha = BCryptPasswordEncoder()
 
     @PermitAll
     @PostMapping
