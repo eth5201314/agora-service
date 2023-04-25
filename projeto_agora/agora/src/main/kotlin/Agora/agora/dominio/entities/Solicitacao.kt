@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
 import javax.validation.constraints.NotBlank
+import javax.validation.constraints.NotNull
 
 @Entity
 data class Solicitacao(
@@ -15,6 +16,7 @@ data class Solicitacao(
     var codigoAluno: Int,
     @field:NotBlank
     var codigoProfessor: Int,
+    @field:NotNull
     var status: Boolean,
     @field:NotBlank
     var dataHora: LocalDateTime

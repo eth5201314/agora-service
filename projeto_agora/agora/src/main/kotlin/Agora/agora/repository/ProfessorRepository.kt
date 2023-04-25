@@ -9,5 +9,5 @@ import org.springframework.validation.annotation.Validated
 @RepositoryRestResource(path = "professores")
 @Validated
 interface ProfessorRepository: JpaRepository<Professor, Int> {
-    fun findByEmail(professorEmail: String): ProfessorRequestDto
+    fun findByEmail(professorEmail: String): ProfessorRequestDto?
 }

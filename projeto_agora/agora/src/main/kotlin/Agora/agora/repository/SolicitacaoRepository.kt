@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
 import org.springframework.validation.annotation.Validated
 
-@RepositoryRestResource(path = "agendamentos")
+@RepositoryRestResource(path = "solicitacoes")
 @Validated
-interface AgendamentoRepository : JpaRepository<Solicitacao, Int>
+interface SolicitacaoRepository : JpaRepository<Solicitacao, Int>
