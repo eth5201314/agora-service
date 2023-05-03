@@ -1,4 +1,4 @@
-package com.agora.services.checkingaccount.domain.entities.services
+package com.agora.services.checkingaccount.domain.services
 
 import com.agora.services.checkingaccount.application.repository.ProfessorRepository
 import com.agora.services.checkingaccount.domain.entities.Professor

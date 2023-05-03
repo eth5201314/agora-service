@@ -3,7 +3,7 @@ package com.agora.services.checkingaccount.application.controller
 import com.agora.services.checkingaccount.domain.entities.Estudante
 import com.agora.services.checkingaccount.domain.entities.dto.EstudanteRequestDto
 import com.agora.services.checkingaccount.domain.entities.dto.EstudanteResponseDto
-import com.agora.services.checkingaccount.domain.entities.services.EstudanteService
+import com.agora.services.checkingaccount.domain.services.EstudanteService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.annotation.security.PermitAll
