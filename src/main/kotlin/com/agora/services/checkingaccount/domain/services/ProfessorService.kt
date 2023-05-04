@@ -20,40 +20,45 @@ class ProfessorService @Autowired constructor(
     private val professorRepository: ProfessorRepository,
     private val lattesService: LattesIdentifierService
 ) {
+
     private val logger: Logger = LoggerFactory.getLogger(ProfessorService::class.java)
     private val codSenha = BCryptPasswordEncoder()
+
     fun createUser(user: Professor): ResponseEntity<Professor> =
-        professorRepository.findByEmail(user.email)?.let {
-            logger.error("O e-mail ${user.email} já existe no sistema")
-            throw ResponseStatusException(HttpStatus.CONFLICT, "O e-mail ${user.email} já existe no sistema")
-        } ?: run {
-            professorRepository.findByIdLattes(user.idLattes)?.let {
-                logger.error("O ID Lattes ${user.idLattes} já existe no sistema")
-                throw ResponseStatusException(
-                    HttpStatus.CONFLICT,
-                    "O ID Lattes ${user.idLattes} já existe no sistema"
-                )
+        professorRepository.findByEmail(user.email!!)
+            ?.let {
+                logger.error("O e-mail ${user.email!!} já existe no sistema")
+                throw ResponseStatusException(HttpStatus.CONFLICT, "O e-mail ${user.email!!} já existe no sistema")
+            }
+            ?: run {
+                professorRepository.findByIdLattes(user.idLattes!!)?.let {
+                    logger.error("O ID Lattes ${user.idLattes!!} já existe no sistema")
+                    throw ResponseStatusException(
+                        HttpStatus.CONFLICT,
+                        "O ID Lattes ${user.idLattes!!} já existe no sistema"
+                    )
+                }
+
+                lattesService.lattesValid(Lattes(user.idLattes!!))
+
+                val senhaCodificada = codSenha.encode(user.senha!!)
+                user.senha = senhaCodificada
+
+                val savedProfessor = professorRepository.save(user)
+
+                logger.info("Cadastro realizado com sucesso")
+                return ResponseEntity.status(HttpStatus.CREATED).body(savedProfessor)
             }
 
-            lattesService.lattesValid(Lattes(user.idLattes))
-
-            val senhaCodificada = codSenha.encode(user.senha)
-            user.senha = senhaCodificada
-
-            val savedProfessor = professorRepository.save(user)
-
-            logger.info("Cadastro realizado com sucesso")
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedProfessor)
-        }
-
     fun login(user: ProfessorRequestDto): ResponseEntity<ProfessorResponseDto> =
-        professorRepository.findByEmail(user.email)?.takeIf { codSenha.matches(user.senha, it.senha) }
+        professorRepository.findByEmail(user.email!!)
+            ?.takeIf { codSenha.matches(user.senha, it.senha) }
             ?.let {
                 logger.info("Login realizado com sucesso")
                 ResponseEntity.ok(ProfessorResponseDto(it))
-            } ?: run {
-            logger.error("O usuário ou senha esta incorreto")
-            throw ResponseStatusException(HttpStatus.NOT_FOUND, "O usuário ou senha esta incorreto")
-        }
-
+            }
+            ?: run {
+                logger.error("O usuário ou senha esta incorreto")
+                throw ResponseStatusException(HttpStatus.NOT_FOUND, "O usuário ou senha esta incorreto")
+            }
 }

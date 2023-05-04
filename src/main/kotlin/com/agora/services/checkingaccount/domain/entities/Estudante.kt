@@ -8,17 +8,17 @@ import javax.validation.constraints.NotBlank
 data class Estudante(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    var idEstudante: Int,
+    var idEstudante: Int?,
 
     @field:NotBlank
     @field:Column(length = 45)
-    var nome: String,
+    var nome: String?,
 
     @field:NotBlank
     @field:Email
     @field:Column(length = 45)
-    var email: String,
+    var email: String?,
 
     @field:NotBlank
-    var senha: String
+    var senha: String?
 )

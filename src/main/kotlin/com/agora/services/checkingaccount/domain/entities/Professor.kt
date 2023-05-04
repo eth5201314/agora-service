@@ -1,5 +1,6 @@
 package com.agora.services.checkingaccount.domain.entities
 
+import org.hibernate.validator.constraints.URL
 import javax.persistence.*
 import javax.persistence.GenerationType
 import javax.persistence.Id
@@ -9,34 +10,34 @@ import javax.validation.constraints.*
 data class Professor(
     @field:Id
     @field:GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idProfessor: Int,
+    val idProfessor: Int?,
 
     @field:NotBlank
     @field:Column(length = 45)
-    var nome: String,
+    var nome: String?,
 
     @field:NotBlank
     @field:Email
     @field:Column(length = 45)
-    var email: String,
+    var email: String?,
 
     @field:NotBlank
     @Pattern(
-        regexp = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}\\-\\d{4})",
+        regexp = "(\\(?\\d{2}\\)?\\s)?(\\d{4,5}-\\d{4})",
         message = "Envie um telefone válido"
     )
     @field:Column(length = 11)
-    var telefone: String = "",
+    var telefone: String?,
 
     @field:NotBlank
-    var senha: String,
+    var senha: String?,
 
     @field:NotNull
-    var idLattes: Long,
+    var idLattes: Long?,
 
     @field:Column(length = 255)
     @field:NotBlank
-    var formacao: String,
+    var formacao: String?,
 
     @ManyToMany
     @JoinTable(
@@ -44,5 +45,8 @@ data class Professor(
         joinColumns = [JoinColumn(name = "id_professor")],
         inverseJoinColumns = [JoinColumn(name = "id_materia")]
     )
-    var materias: MutableList<Materia> = mutableListOf()
+    var materias: MutableList<Materia> = mutableListOf(),
+
+    @field:URL
+    var urlFoto:String?
 )
